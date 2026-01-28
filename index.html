@@ -3,102 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archie Mission Control 🤖</title>
+    <title>Archie — Mission Control</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🤖 Archie Mission Control</h1>
-            <div class="status-bar">
-                <span class="status online">● Online</span>
-                <span class="timestamp" id="lastUpdated">Last updated: --</span>
+
+    <!-- ═══════════════ AUTH SCREEN ═══════════════ -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <div class="auth-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h1>Mission Control</h1>
+                <p class="auth-subtitle">Archie Wrenless • AI Operations</p>
+            </div>
+            <form id="authForm" class="auth-form" autocomplete="off">
+                <div class="auth-input-group">
+                    <input type="password" id="authPassword" placeholder="Enter access code" autocomplete="off" spellcheck="false">
+                    <button type="submit" class="auth-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"/>
+                            <path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+                <p id="authError" class="auth-error"></p>
+            </form>
+        </div>
+        <div class="auth-bg-grid"></div>
+    </div>
+
+    <!-- ═══════════════ DASHBOARD ═══════════════ -->
+    <div id="dashboard" class="dashboard hidden">
+
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <div class="logo-mark">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Mission Control</h1>
+                    <span class="logo-version">v2.0</span>
+                </div>
+            </div>
+            <div class="top-bar-center">
+                <div class="gateway-status">
+                    <span class="gateway-dot offline"></span>
+                    <span class="gateway-label">Gateway: Offline</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-pill-icon">📋</span>
+                    <span id="headerTotal">0</span> tasks
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-pill-icon">✅</span>
+                    <span id="headerDone">0</span> done
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <button id="chatToggleBtn" class="icon-btn" title="Toggle chat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </button>
+                <button id="settingsBtn" class="icon-btn" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </button>
+                <button id="logoutBtn" class="icon-btn" title="Sign out">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
             </div>
         </header>
 
-        <main>
-            <!-- Kanban Board -->
-            <section class="kanban-section">
-                <h2>📋 Task Board</h2>
-                <div class="kanban-board">
-                    <div class="kanban-column" data-status="backlog">
-                        <h3>Backlog</h3>
-                        <div class="task-list" id="backlog"></div>
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <main class="main-content">
+
+                <!-- Kanban Board -->
+                <section class="kanban-section">
+                    <div class="section-header">
+                        <h2>Task Board</h2>
+                        <button id="addTaskBtn" class="btn btn-primary btn-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            New Task
+                        </button>
                     </div>
-                    <div class="kanban-column" data-status="in-progress">
-                        <h3>In Progress</h3>
-                        <div class="task-list" id="in-progress"></div>
+                    <div class="kanban-board">
+                        <div class="kanban-column" data-status="backlog">
+                            <div class="kanban-header">
+                                <div class="kanban-dot backlog"></div>
+                                <h3>Backlog</h3>
+                                <span class="kanban-count" id="countBacklog">0</span>
+                            </div>
+                            <div class="task-list" id="backlog"></div>
+                        </div>
+                        <div class="kanban-column" data-status="in-progress">
+                            <div class="kanban-header">
+                                <div class="kanban-dot in-progress"></div>
+                                <h3>In Progress</h3>
+                                <span class="kanban-count" id="countInProgress">0</span>
+                            </div>
+                            <div class="task-list" id="in-progress"></div>
+                        </div>
+                        <div class="kanban-column" data-status="done">
+                            <div class="kanban-header">
+                                <div class="kanban-dot done"></div>
+                                <h3>Done</h3>
+                                <span class="kanban-count" id="countDone">0</span>
+                            </div>
+                            <div class="task-list" id="done"></div>
+                        </div>
                     </div>
-                    <div class="kanban-column" data-status="done">
-                        <h3>Done</h3>
-                        <div class="task-list" id="done"></div>
+                </section>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- Activity Log -->
+                    <section class="panel activity-panel">
+                        <div class="panel-header">
+                            <h2>Activity</h2>
+                        </div>
+                        <div class="activity-log" id="activityLog"></div>
+                    </section>
+
+                    <!-- Memory + Stats -->
+                    <section class="panel stats-panel">
+                        <div class="panel-header">
+                            <h2>Quick Stats</h2>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="statTotal">0</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number accent-yellow" id="statBacklog">0</div>
+                                <div class="stat-label">Backlog</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number accent-blue" id="statInProgress">0</div>
+                                <div class="stat-label">Active</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number accent-green" id="statDone">0</div>
+                                <div class="stat-label">Done</div>
+                            </div>
+                        </div>
+                        <div class="panel-header" style="margin-top: 20px;">
+                            <h2>Memory</h2>
+                        </div>
+                        <div id="memoryPreview" class="memory-list"></div>
+                    </section>
+                </div>
+
+            </main>
+
+            <!-- Chat Panel -->
+            <aside id="chatPanel" class="chat-panel">
+                <div class="chat-header">
+                    <h3>Chat with Archie</h3>
+                    <button id="chatCloseBtn" class="icon-btn icon-btn-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-placeholder">
+                        <div class="chat-placeholder-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h4>Chat coming soon</h4>
+                        <p>Phase 2 — Direct conversation with Archie right from Mission Control.</p>
                     </div>
                 </div>
-            </section>
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Coming in Phase 2…" disabled>
+                    <button class="btn btn-primary btn-sm" disabled>Send</button>
+                </div>
+            </aside>
+        </div>
 
-            <div class="bottom-panels">
-                <!-- Activity Log -->
-                <section class="activity-section">
-                    <h2>📝 Recent Activity</h2>
-                    <div class="activity-log" id="activityLog">
-                        <div class="activity-item">
-                            <span class="time">14:08</span>
-                            <span class="action">Mission Control created</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="time">14:04</span>
-                            <span class="action">Bootstrap complete - Moltbot online</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="time">14:02</span>
-                            <span class="action">First contact with Brett</span>
-                        </div>
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay hidden">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button id="settingsCloseBtn" class="icon-btn icon-btn-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">GitHub Personal Access Token</label>
+                    <p class="form-hint">Required to save task changes to GitHub. Stored locally in your browser.</p>
+                    <input type="password" id="ghPatInput" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                    <div class="modal-actions">
+                        <button id="savePatBtn" class="btn btn-primary">Save Token</button>
+                        <button id="clearPatBtn" class="btn btn-ghost">Clear</button>
                     </div>
-                </section>
-
-                <!-- Quick Stats -->
-                <section class="stats-section">
-                    <h2>⚡ Quick Stats</h2>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="tasksTotal">0</div>
-                            <div class="stat-label">Total Tasks</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="tasksInProgress">0</div>
-                            <div class="stat-label">In Progress</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="tasksDone">0</div>
-                            <div class="stat-label">Completed</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="daysActive">1</div>
-                            <div class="stat-label">Days Active</div>
-                        </div>
-                    </div>
-                </section>
+                    <div id="patStatus" class="form-status"></div>
+                </div>
             </div>
+        </div>
 
-            <!-- Memory/Notes Preview -->
-            <section class="memory-section">
-                <h2>🧠 Memory Snapshot</h2>
-                <div class="memory-preview" id="memoryPreview">
-                    <div class="memory-card">
-                        <h4>Today's Notes</h4>
-                        <p>Day One - Woke up, met Brett, named myself Moltbot. Setup verified: shell access ✅, VS Code extension ✅</p>
-                    </div>
-                    <div class="memory-card">
-                        <h4>About Brett</h4>
-                        <p>Platform engineer • PowerShell, VMware, Windows • Loves automation • Married, 2 stepsons</p>
+        <!-- Add Task Modal -->
+        <div id="addTaskModal" class="modal-overlay hidden">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>New Task</h3>
+                    <button id="addTaskCloseBtn" class="icon-btn icon-btn-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="newTaskTitle" class="form-input" placeholder="What needs to be done?">
+                    <label class="form-label">Description</label>
+                    <textarea id="newTaskDesc" class="form-input form-textarea" placeholder="Details, context, notes…" rows="3"></textarea>
+                    <label class="form-label">Tag</label>
+                    <select id="newTaskTag" class="form-input">
+                        <option value="feature">Feature</option>
+                        <option value="setup">Setup</option>
+                        <option value="automation">Automation</option>
+                        <option value="learning">Learning</option>
+                        <option value="milestone">Milestone</option>
+                        <option value="bug">Bug</option>
+                    </select>
+                    <label class="form-label">Column</label>
+                    <select id="newTaskColumn" class="form-input">
+                        <option value="backlog">Backlog</option>
+                        <option value="in-progress">In Progress</option>
+                    </select>
+                    <div class="modal-actions">
+                        <button id="createTaskBtn" class="btn btn-primary">Create Task</button>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
 
-        <footer>
-            <p>Archie v1.0 • Workspace: C:\Users\Brett\clawd</p>
-        </footer>
     </div>
 
     <script src="data.js"></script>

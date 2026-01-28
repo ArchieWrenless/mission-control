@@ -37,7 +37,15 @@ const TASKS = {
             created: '2026-01-28'
         }
     ],
-    'in-progress': [],
+    'in-progress': [
+        {
+            id: 'task-016',
+            title: 'Mission Control v2',
+            description: 'Enhanced dashboard with auth wall, interactive kanban, GitHub persistence, usage stats, chat placeholder. Phase 2 foundation.',
+            tag: 'feature',
+            created: '2026-01-29'
+        }
+    ],
     done: [
         {
             id: 'task-011',
