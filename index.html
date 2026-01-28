@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archie Mission Control 🤖</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Archie Mission Control</h1>
+            <div class="status-bar">
+                <span class="status online">● Online</span>
+                <span class="timestamp" id="lastUpdated">Last updated: --</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Kanban Board -->
+            <section class="kanban-section">
+                <h2>📋 Task Board</h2>
+                <div class="kanban-board">
+                    <div class="kanban-column" data-status="backlog">
+                        <h3>Backlog</h3>
+                        <div class="task-list" id="backlog"></div>
+                    </div>
+                    <div class="kanban-column" data-status="in-progress">
+                        <h3>In Progress</h3>
+                        <div class="task-list" id="in-progress"></div>
+                    </div>
+                    <div class="kanban-column" data-status="done">
+                        <h3>Done</h3>
+                        <div class="task-list" id="done"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="bottom-panels">
+                <!-- Activity Log -->
+                <section class="activity-section">
+                    <h2>📝 Recent Activity</h2>
+                    <div class="activity-log" id="activityLog">
+                        <div class="activity-item">
+                            <span class="time">14:08</span>
+                            <span class="action">Mission Control created</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="time">14:04</span>
+                            <span class="action">Bootstrap complete - Moltbot online</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="time">14:02</span>
+                            <span class="action">First contact with Brett</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Stats -->
+                <section class="stats-section">
+                    <h2>⚡ Quick Stats</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="tasksTotal">0</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="tasksInProgress">0</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="tasksDone">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="daysActive">1</div>
+                            <div class="stat-label">Days Active</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Memory/Notes Preview -->
+            <section class="memory-section">
+                <h2>🧠 Memory Snapshot</h2>
+                <div class="memory-preview" id="memoryPreview">
+                    <div class="memory-card">
+                        <h4>Today's Notes</h4>
+                        <p>Day One - Woke up, met Brett, named myself Moltbot. Setup verified: shell access ✅, VS Code extension ✅</p>
+                    </div>
+                    <div class="memory-card">
+                        <h4>About Brett</h4>
+                        <p>Platform engineer • PowerShell, VMware, Windows • Loves automation • Married, 2 stepsons</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Archie v1.0 • Workspace: C:\Users\Brett\clawd</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
