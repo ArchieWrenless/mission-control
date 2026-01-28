@@ -37,16 +37,16 @@ const TASKS = {
             created: '2026-01-28'
         }
     ],
-    'in-progress': [
+    'in-progress': [],
+    done: [
         {
             id: 'task-016',
             title: 'Mission Control v2',
             description: 'Enhanced dashboard with auth wall, interactive kanban, GitHub persistence, usage stats, chat placeholder. Phase 2 foundation.',
             tag: 'feature',
-            created: '2026-01-29'
-        }
-    ],
-    done: [
+            created: '2026-01-28',
+            completed: '2026-01-28'
+        },
         {
             id: 'task-011',
             title: 'Set up Gmail for Archie',
@@ -115,6 +115,10 @@ const TASKS = {
 };
 
 const ACTIVITY = [
+    { time: '14:05', date: '2026-01-28', action: 'Mission Control v2 deployed — auth, task mgmt, dark theme ✅', type: 'milestone' },
+    { time: '13:54', date: '2026-01-28', action: 'Published Mission Control to GitHub Pages', type: 'feature' },
+    { time: '13:27', date: '2026-01-28', action: 'Switched to Sonnet default + Opus for heavy lifting', type: 'setup' },
+    { time: '12:28', date: '2026-01-28', action: 'Airbnb search — Savannah trip for wife (Feb 26-Mar 1)', type: 'research' },
     { time: '09:59', date: '2026-01-28', action: 'Gmail test email sent successfully ✅', type: 'milestone' },
     { time: '09:42', date: '2026-01-28', action: 'Mission Control updated — timezone fix, task sync', type: 'maintenance' },
     { time: '08:57', date: '2026-01-28', action: 'Gmail setup — Archie.wrenless@gmail.com configured', type: 'setup' },
