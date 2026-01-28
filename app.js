@@ -2,7 +2,7 @@
 //  Archie Mission Control v2 — App Logic
 // ═══════════════════════════════════════════════
 
-const AUTH_HASH = 'b680b9a63d9c9c747e742fcd19c9855378cf390650c577611851d0e908dc8b0a';
+const AUTH_HASH = '6909a9b1bbd39f1f5843ba9ce587da14fed1d17d166ba27afe07b66fe9a19f99';
 const GITHUB_OWNER = 'ArchieWrenless';
 const GITHUB_REPO = 'mission-control';
 const GITHUB_FILE = 'data.js';
