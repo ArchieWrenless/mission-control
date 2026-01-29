@@ -64,6 +64,8 @@ function showDashboard() {
 
     renderAll();
     bindEvents();
+    checkGatewayStatus(); // Initial check
+    setInterval(checkGatewayStatus, 30000); // Check every 30 seconds
 }
 
 function renderAll() {
@@ -71,6 +73,43 @@ function renderAll() {
     renderActivity();
     renderMemory();
     updateStats();
+}
+
+// ═══════════════ GATEWAY STATUS ═══════════════
+
+async function checkGatewayStatus() {
+    const gatewayDot = document.querySelector('.gateway-dot');
+    const gatewayLabel = document.querySelector('.gateway-label');
+    
+    if (!gatewayDot || !gatewayLabel) return;
+
+    try {
+        // Try localhost first (for local access)
+        const response = await fetch('http://localhost:18789/api/v1/status', {
+            method: 'GET',
+            mode: 'cors',
+            timeout: 5000
+        }).catch(() => {
+            // Fallback to LAN IP
+            return fetch('http://192.168.1.163:18789/api/v1/status', {
+                method: 'GET',
+                mode: 'cors',
+                timeout: 5000
+            });
+        });
+
+        if (response && response.ok) {
+            gatewayDot.classList.remove('offline');
+            gatewayDot.classList.add('online');
+            gatewayLabel.textContent = 'Gateway: Online';
+        } else {
+            throw new Error('Gateway not responding');
+        }
+    } catch (error) {
+        gatewayDot.classList.remove('online');
+        gatewayDot.classList.add('offline');
+        gatewayLabel.textContent = 'Gateway: Offline';
+    }
 }
 
 // ═══════════════ KANBAN ═══════════════
