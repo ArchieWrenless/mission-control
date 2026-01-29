@@ -35,10 +35,25 @@ const TASKS = {
             description: 'Brett cannot RDP to DESKTOP-NBLM58S. Server-side looks fine — likely client-side or password issue. Needs follow-up.',
             tag: 'setup',
             created: '2026-01-28'
+        },
+        {
+            id: 'task-018',
+            title: 'DevOps learning: Kubernetes + FinOps',
+            description: 'Deep dive into K8s cost optimization with Kubecost/OpenCost. Build demo cluster with resource tracking dashboard. Perfect timing with 2026 AI+K8s trends.',
+            tag: 'learning',
+            created: '2026-01-29'
         }
     ],
     'in-progress': [],
     done: [
+        {
+            id: 'task-017',
+            title: 'VMware SRM Decommissioning Script',
+            description: 'Built Remove-SRMServer PowerShell function. Removes VM from SRM, deletes protection groups/recovery plans/datastores if last VM. Full safety features, comprehensive docs. Emailed to Brett.',
+            tag: 'feature',
+            created: '2026-01-29',
+            completed: '2026-01-29'
+        },
         {
             id: 'task-016',
             title: 'Mission Control v2',
@@ -115,6 +130,12 @@ const TASKS = {
 };
 
 const ACTIVITY = [
+    { time: '08:15', date: '2026-01-29', action: 'Morning brief delivered manually (cron missed run)', type: 'automation' },
+    { time: '08:11', date: '2026-01-29', action: 'Emailed SRM script to Brett.m.halsey@gmail.com', type: 'feature' },
+    { time: '08:06', date: '2026-01-29', action: 'VMware SRM decommissioning script completed — Remove-SRMServer.ps1 ✅', type: 'milestone' },
+    { time: '08:00', date: '2026-01-29', action: 'Switched to Opus for complex SRM script development', type: 'setup' },
+    { time: '07:58', date: '2026-01-29', action: 'Configured Sonnet → Opus escalation strategy', type: 'setup' },
+    { time: '07:56', date: '2026-01-29', action: 'Discord channel enabled and tested', type: 'setup' },
     { time: '14:05', date: '2026-01-28', action: 'Mission Control v2 deployed — auth, task mgmt, dark theme ✅', type: 'milestone' },
     { time: '13:54', date: '2026-01-28', action: 'Published Mission Control to GitHub Pages', type: 'feature' },
     { time: '13:27', date: '2026-01-28', action: 'Switched to Sonnet default + Opus for heavy lifting', type: 'setup' },
@@ -138,11 +159,15 @@ const ACTIVITY = [
 
 const MEMORY_SNAPSHOTS = [
     {
+        title: "Day 3 — Jan 29, 2026",
+        content: "Built VMware SRM decommissioning script (Remove-SRMServer). Configured model strategy: Sonnet default, Opus for complex tasks. Discord channel active. Morning brief delivered manually."
+    },
+    {
         title: "Day 2 — Jan 28, 2026",
         content: "Got a last name: Archie Wrenless. Gmail set up and working. Found learning videos for Brett. Letter reminder cron running. RDP needs follow-up."
     },
     {
         title: "About Brett",
-        content: "Platform engineer → devops transition • PowerShell, VMware, Windows • Learning GitHub Actions, Terraform, VS Code • Married Oct 2025, stepsons Lake (8) & Boone (7) • Timezone: EST (Lakeland, FL)"
+        content: "Platform engineer → devops transition • PowerShell, VMware, Windows • Learning GitHub Actions, Terraform, VS Code • Married Oct 2025, stepsons Lake (8) & Boone (7) • Email: Brett.m.halsey@gmail.com • Timezone: EST (Lakeland, FL)"
     }
 ];
