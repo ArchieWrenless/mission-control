@@ -64,8 +64,7 @@ function showDashboard() {
 
     renderAll();
     bindEvents();
-    checkGatewayStatus(); // Initial check
-    setInterval(checkGatewayStatus, 30000); // Check every 30 seconds
+    // Gateway status check disabled (CORS/mixed-content issues from GitHub Pages)
 }
 
 function renderAll() {
